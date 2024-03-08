@@ -381,22 +381,25 @@ namespace Enrollment_System
                 int selectedIndex = dataGridView1.SelectedRows[0].Index;
 
                 string ID = dataGridView1.Rows[selectedIndex].Cells["StudentID"].Value.ToString();
-                DeleteStudentByIDNumber(ID);
-                MessageBox.Show("Record Deleted!", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
 
+
+                DialogResult result = MessageBox.Show($"Do you want to delete?\n\n{ID}", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+                if (result == DialogResult.Yes)
+                {
+                    
+                    DeleteStudentByIDNumber(ID);
+                    MessageBox.Show("Record Deleted!", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
 
         private void btDelete_Click_1(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Do you want to delete?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-
-            if (result == DialogResult.Yes)
-            {
+        
                 DeleteRecord();
 
-            }
-            
+         
         }
 
         private void button3_Click(object sender, EventArgs e)
