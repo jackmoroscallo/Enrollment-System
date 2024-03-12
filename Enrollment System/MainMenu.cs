@@ -96,5 +96,12 @@ namespace Enrollment_System
             Subject subject = new Subject();
             subject.Show();
         }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Fee fee = new Fee();
+            fee.Show();
+        }
     }
 }

@@ -6,31 +6,31 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
-using System.Net;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Enrollment_System
 {
-    public partial class Subject : Form
+    public partial class Fee : Form
     {
         private readonly ErrorProvider errorProvider = new ErrorProvider { BlinkStyle = ErrorBlinkStyle.NeverBlink };
-        public Subject()
+        public Fee()
         {
             InitializeComponent();
         }
 
-        int SubID { get; set; }
+        int FeeID { get; set; }
 
-        private void btnMainMenu2_Click(object sender, EventArgs e)
+        private void btnMainMenu_Click(object sender, EventArgs e)
         {
             this.Hide();
             MainMenu mainMenu = new MainMenu();
             mainMenu.Show();
         }
 
-        private void Subject_FormClosing(object sender, FormClosingEventArgs e)
+        private void Fee_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
@@ -39,29 +39,21 @@ namespace Enrollment_System
             }
         }
 
-        private void btnAddSubject_Click(object sender, EventArgs e)
-        {
-            cbCourseCode.Enabled = true;
-            tbSubjectCode.ReadOnly = false;
-            tbSubjectDescription.ReadOnly = false;
-            tbUnits.ReadOnly = false;
-            cbType.Enabled = true;
-            tbSubjectRate.ReadOnly = false;
-            tbSearch.ReadOnly = false;
-        }
-
-        private void Subject_Load(object sender, EventArgs e)
+        private void Fee_Load(object sender, EventArgs e)
         {
             LoadData();
             getCourses();
+            getSchoolYear();
 
+            tbDescription.ReadOnly = true;
+            tbAmount.ReadOnly = true;
+            cbFeeType.Enabled = false;
             cbCourseCode.Enabled = false;
-            tbSubjectCode.ReadOnly = true;
-            tbSubjectDescription.ReadOnly = true;
-            tbUnits.ReadOnly = true;
-            cbType.Enabled = false;
-            tbSubjectRate.ReadOnly = true;
-            tbSearch.ReadOnly = true;
+            cbSchoolYear.Enabled = false;
+            cbSchoolYear.Enabled = false;
+            cbTerm.Enabled = false;
+            cbYearLevel.Enabled = false;
+            cbSchoolYear.DropDownHeight = 150;
         }
 
         private void LoadData()
@@ -69,14 +61,15 @@ namespace Enrollment_System
             string connectionString = GlobalSetting.ConnectionString;
 
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("SELECT [SubjectID]");
+            stringBuilder.AppendLine("SELECT [FeeID]");
+            stringBuilder.AppendLine("      ,[Description]");
+            stringBuilder.AppendLine("      ,[Amount]");
+            stringBuilder.AppendLine("      ,[FeeType]");
             stringBuilder.AppendLine("      ,[CourseCode]");
-            stringBuilder.AppendLine("      ,[SubjectCode]");
-            stringBuilder.AppendLine("      ,[SubjectDescription]");
-            stringBuilder.AppendLine("      ,[Units]");
-            stringBuilder.AppendLine("      ,[Type]");
-            stringBuilder.AppendLine("      ,[SubjectRate]");
-            stringBuilder.AppendLine("  FROM [IT3232Moroscallo].[sub].[Subject]");
+            stringBuilder.AppendLine("      ,[YearLevel]");
+            stringBuilder.AppendLine("      ,[SchoolYear]");
+            stringBuilder.AppendLine("      ,[Term]");
+            stringBuilder.AppendLine("  FROM [IT3232Moroscallo].[dbo].[Fee]");
 
             SqlConnection connection = new SqlConnection(connectionString);
 
@@ -90,8 +83,8 @@ namespace Enrollment_System
 
                 dataAdapter.Fill(dataTable);
 
-                dgSubject.DataSource = dataTable;
-                dgSubject.Columns["SubjectID"].Visible = false;
+                dgFee.DataSource = dataTable;
+                dgFee.Columns["FeeID"].Visible = false;
 
             }
             catch (Exception ex)
@@ -136,28 +129,71 @@ namespace Enrollment_System
             }
         }
 
-        private void btnSaveSubject_Click(object sender, EventArgs e)
+        private void getSchoolYear()
+        {
+
+            string connectionString = GlobalSetting.ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // Replace "YourTableName" and "YourColumnName" with your actual table and column names
+                string query = "SELECT SchoolYear FROM [dbo].[SchoolYear] ORDER BY SchoolYear DESC";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Clear existing items in the ComboBox
+                        cbSchoolYear.Items.Clear();
+
+                        while (reader.Read())
+                        {
+                            // Add each item to the ComboBox
+                            cbSchoolYear.Items.Add(reader["SchoolYear"].ToString());
+                        }
+                    }
+                }
+            }
+        }
+
+        private void btnAddFee_Click(object sender, EventArgs e)
+        {
+            tbDescription.ReadOnly = false;
+            tbAmount.ReadOnly = false;
+            cbFeeType.Enabled = true;
+            cbCourseCode.Enabled = true;
+            cbSchoolYear.Enabled = true;
+            cbSchoolYear.Enabled = true;
+            cbTerm.Enabled = true;
+            cbYearLevel.Enabled = true;
+        }
+
+        private void btnSaveFee_Click(object sender, EventArgs e)
         {
             string connectionString = GlobalSetting.ConnectionString;
 
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("INSERT INTO [sub].[Subject]");
+            stringBuilder.AppendLine("INSERT INTO [dbo].[Fee]");
             stringBuilder.AppendLine("           (");
-            stringBuilder.AppendLine("           [CourseCode]");
-            stringBuilder.AppendLine("           ,[SubjectCode]");
-            stringBuilder.AppendLine("           ,[SubjectDescription]");
-            stringBuilder.AppendLine("           ,[Units]");
-            stringBuilder.AppendLine("           ,[Type]");
-            stringBuilder.AppendLine("           ,[SubjectRate]");
+            stringBuilder.AppendLine("           [Description]");
+            stringBuilder.AppendLine("           ,[Amount]");
+            stringBuilder.AppendLine("           ,[FeeType]");
+            stringBuilder.AppendLine("           ,[CourseCode]");
+            stringBuilder.AppendLine("           ,[YearLevel]");
+            stringBuilder.AppendLine("           ,[SchoolYear]");
+            stringBuilder.AppendLine("           ,[Term]");
             stringBuilder.AppendLine("           )");
             stringBuilder.AppendLine("     VALUES");
             stringBuilder.AppendLine("           (");
-            stringBuilder.AppendLine("           @CourseCode");
-            stringBuilder.AppendLine("           ,@SubjectCode");
-            stringBuilder.AppendLine("           ,@SubjectDescription");
-            stringBuilder.AppendLine("           ,@Units");
-            stringBuilder.AppendLine("           ,@Type");
-            stringBuilder.AppendLine("           ,@SubjectRate");
+            stringBuilder.AppendLine("           @Description");
+            stringBuilder.AppendLine("           ,@Amount");
+            stringBuilder.AppendLine("           ,@FeeType");
+            stringBuilder.AppendLine("           ,@CourseCode");
+            stringBuilder.AppendLine("           ,@YearLevel");
+            stringBuilder.AppendLine("           ,@SchoolYear");
+            stringBuilder.AppendLine("           ,@Term");
             stringBuilder.AppendLine("           )");
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -167,12 +203,13 @@ namespace Enrollment_System
                 using (SqlCommand command = new SqlCommand(stringBuilder.ToString(), connection))
                 {
                     command.Parameters.Clear();
+                    command.Parameters.AddWithValue("@Description", tbDescription.Text);
+                    command.Parameters.AddWithValue("@Amount", tbAmount.Text);
+                    command.Parameters.AddWithValue("@FeeType", cbFeeType.Text);
                     command.Parameters.AddWithValue("@CourseCode", cbCourseCode.Text);
-                    command.Parameters.AddWithValue("@SubjectCode", tbSubjectCode.Text);
-                    command.Parameters.AddWithValue("@SubjectDescription", tbSubjectDescription.Text);
-                    command.Parameters.AddWithValue("@Units", tbUnits.Text);
-                    command.Parameters.AddWithValue("@Type", cbType.Text);
-                    command.Parameters.AddWithValue("@SubjectRate", tbSubjectRate.Text);
+                    command.Parameters.AddWithValue("@YearLevel", cbYearLevel.Text);
+                    command.Parameters.AddWithValue("@SchoolYear", cbSchoolYear.Text);
+                    command.Parameters.AddWithValue("@Term", cbTerm.Text);
 
 
 
@@ -190,14 +227,15 @@ namespace Enrollment_System
             string connectionString = GlobalSetting.ConnectionString;
 
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("UPDATE [sub].[Subject] SET ");
-            stringBuilder.AppendLine("           [CourseCode] = @CourseCode");
-            stringBuilder.AppendLine("           ,[SubjectCode] = @SubjectCode");
-            stringBuilder.AppendLine("           ,[SubjectDescription] = @SubjectDescription");
-            stringBuilder.AppendLine("           ,[Units] = @Units");
-            stringBuilder.AppendLine("           ,[Type] = @Type");
-            stringBuilder.AppendLine("           ,[SubjectRate] = @SubjectRate");
-            stringBuilder.AppendLine("WHERE SubjectID = @SubjectID");
+            stringBuilder.AppendLine("UPDATE [dbo].[Fee] SET ");
+            stringBuilder.AppendLine("           [Description] = @Description");
+            stringBuilder.AppendLine("           ,[Amount] = @Amount");
+            stringBuilder.AppendLine("           ,[FeeType] = @FeeType");
+            stringBuilder.AppendLine("           ,[CourseCode] = @CourseCode");
+            stringBuilder.AppendLine("           ,[YearLevel] = @YearLevel");
+            stringBuilder.AppendLine("           ,[SchoolYear] = @SchoolYear");
+            stringBuilder.AppendLine("           ,[Term] = @Term");
+            stringBuilder.AppendLine("WHERE FeeID = @FeeID");
 
             SqlConnection connection = new SqlConnection(connectionString);
             {
@@ -207,13 +245,16 @@ namespace Enrollment_System
                 {
                     command.Parameters.Clear();
 
-                    command.Parameters.AddWithValue("@CourseCode", cbCourseCode.Text);
-                    command.Parameters.AddWithValue("@FirstName", tbSubjectCode.Text);
-                    command.Parameters.AddWithValue("@MiddleName", tbSubjectDescription.Text);
-                    command.Parameters.AddWithValue("@StudentCourse", tbUnits.Text);
-                    command.Parameters.AddWithValue("@YearLevel", cbType.Text);
-                    command.Parameters.AddWithValue("@StudentStatus", tbSubjectRate.Text);
                     
+                    command.Parameters.AddWithValue("@Description", tbDescription.Text);
+                    command.Parameters.AddWithValue("@Amount", tbAmount.Text);
+                    command.Parameters.AddWithValue("@FeeType", cbFeeType.Text);
+                    command.Parameters.AddWithValue("@CourseCode", cbCourseCode.Text);
+                    command.Parameters.AddWithValue("@YearLevel", cbYearLevel.Text);
+                    command.Parameters.AddWithValue("@SchoolYear", cbSchoolYear.Text);
+                    command.Parameters.AddWithValue("@Term", cbTerm.Text);
+                    command.Parameters.AddWithValue("@FeeID", FeeID);
+
 
                     command.ExecuteNonQuery();
                 }
@@ -223,6 +264,24 @@ namespace Enrollment_System
 
             LoadData();
 
+            ClearFields();
+        }
+
+        private void ClearFields()
+        {
+
+
+            tbDescription.Text = "";
+            tbDescription.Text = "";
+            cbFeeType.Text = "";
+            cbCourseCode.Text = "";
+            cbSchoolYear.Text = "";
+            cbTerm.Text = "";
+
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
             ClearFields();
         }
 
@@ -239,10 +298,10 @@ namespace Enrollment_System
                     command.Connection = connection;
 
                     // Get column names
-                    DataTable schemaTable = connection.GetSchema("Columns", new[] { null, null, "Subject", null });
+                    DataTable schemaTable = connection.GetSchema("Columns", new[] { null, null, "Fee", null });
 
                     // Constructing the dynamic SQL query
-                    command.CommandText = $"SELECT * FROM [sub].[Subject] WHERE ";
+                    command.CommandText = $"SELECT * FROM [dbo].[Fee] WHERE ";
 
                     foreach (DataRow row in schemaTable.Rows)
                     {
@@ -268,20 +327,41 @@ namespace Enrollment_System
                     }
 
                     // Bind the DataTable to the DataGridView
-                    dgSubject.DataSource = searchResults;
+                    dgFee.DataSource = searchResults;
                 }
 
 
             }
         }
 
-        private void DeleteSubjectBySubjectID(string paramSubjectID)
+        private void dgFee_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                DataGridViewRow selectedRow = dgFee.Rows[e.RowIndex];
+                FeeID = Convert.ToInt32(selectedRow.Cells[0].Value.ToString());
+
+                tbDescription.Text = selectedRow.Cells[1].Value.ToString();
+                tbAmount.Text = selectedRow.Cells[2].Value.ToString();
+                cbFeeType.Text = selectedRow.Cells[3].Value.ToString();
+                cbCourseCode.Text = selectedRow.Cells[4].Value.ToString();
+                cbSchoolYear.Text = selectedRow.Cells[5].Value.ToString();
+                cbTerm.Text = selectedRow.Cells[6].Value.ToString();
+                cbYearLevel.Text = selectedRow.Cells[6].Value.ToString();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void DeleteFeeByFeeID(string paramSubjectID)
         {
             string connectionString = GlobalSetting.ConnectionString;
 
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("DELETE FROM [sub].[Subject]  ");
-            stringBuilder.AppendLine("WHERE SubjectID = @SubjectID");
+            stringBuilder.AppendLine("DELETE FROM [dbo].[Fee]  ");
+            stringBuilder.AppendLine("WHERE FeeID = @FeeID");
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -290,7 +370,7 @@ namespace Enrollment_System
                 using (SqlCommand command = new SqlCommand(stringBuilder.ToString(), connection))
                 {
                     command.Parameters.Clear();
-                    command.Parameters.AddWithValue("@SubjectID", paramSubjectID);
+                    command.Parameters.AddWithValue("@FeeID", paramSubjectID);
                     command.ExecuteNonQuery();
                 }
             }
@@ -300,68 +380,32 @@ namespace Enrollment_System
             LoadData();
         }
 
+        
+
         private void DeleteRecord()
         {
-            if (dgSubject.SelectedRows.Count > 0)
+            if (dgFee.SelectedRows.Count > 0)
             {
-                int selectedIndex = dgSubject.SelectedRows[0].Index;
+                int selectedIndex = dgFee.SelectedRows[0].Index;
 
-                string ID = dgSubject.Rows[selectedIndex].Cells["SubjectID"].Value.ToString();
-
+                string ID = dgFee.Rows[selectedIndex].Cells["FeeID"].Value.ToString();
 
                 DialogResult result = MessageBox.Show($"Do you want to delete?\n\n{ID}", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
                 if (result == DialogResult.Yes)
                 {
-
-                    DeleteSubjectBySubjectID(ID);
+                    DeleteFeeByFeeID(ID);
                     MessageBox.Show("Record Deleted!", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+
+
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
             DeleteRecord();
             LoadData();
-        }
-
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            ClearFields();
-        }
-
-        private void ClearFields()
-        {
-
-
-            cbCourseCode.Text = "";
-            tbSubjectCode.Text = "";
-            tbSubjectDescription.Text = "";
-            tbUnits.Text = "";
-            cbType.Text = "";
-            tbSubjectRate.Text = "";
-
-        }
-
-        private void dgSubject_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                DataGridViewRow selectedRow = dgSubject.Rows[e.RowIndex];
-
-                SubID = Convert.ToInt32(selectedRow.Cells[0].Value.ToString());
-                cbCourseCode.Text = selectedRow.Cells[1].Value.ToString();
-                tbSubjectCode.Text = selectedRow.Cells[2].Value.ToString();
-                tbSubjectDescription.Text = selectedRow.Cells[3].Value.ToString();
-                tbUnits.Text = selectedRow.Cells[4].Value.ToString();
-                cbType.Text = selectedRow.Cells[5].Value.ToString();
-                tbSubjectRate.Text = selectedRow.Cells[6].Value.ToString();
-            }
-            catch
-            {
-
-            }
         }
 
         private bool ValidateAllControls(Control container)

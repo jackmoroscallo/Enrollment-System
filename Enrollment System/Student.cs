@@ -68,7 +68,14 @@ namespace Enrollment_System
         {
             string connectionString = GlobalSetting.ConnectionString;
 
-            string query = "SELECT [StudentID],[LastName],[FirstName],[MiddleName],[StudentCourse],[YearLevel],[StudentStatus]\r\n      ,[Gender]\r\n      ,[Birthdate]\r\n      ,[Address]\r\n      ,[ContactNumber]\r\n      ,[Email]\r\n  FROM [IT3232Moroscallo].[stud].[Student]\r\n";
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine("SELECT [StudentID],[LastName],[FirstName],[MiddleName],[StudentCourse],[YearLevel],[StudentStatus]");
+            stringBuilder.AppendLine("      ,[Gender]");
+            stringBuilder.AppendLine("      ,[Birthdate]");
+            stringBuilder.AppendLine("      ,[Address]");
+            stringBuilder.AppendLine("      ,[ContactNumber]");
+            stringBuilder.AppendLine("      ,[Email]");
+            stringBuilder.AppendLine("  FROM [IT3232Moroscallo].[stud].[Student]");
 
             SqlConnection connection = new SqlConnection(connectionString);
 
@@ -76,7 +83,7 @@ namespace Enrollment_System
             {
                 connection.Open();
 
-                SqlDataAdapter dataAdapter = new SqlDataAdapter(query, connection);
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(stringBuilder.ToString(), connection);
 
                 DataTable dataTable = new DataTable();
 
@@ -398,8 +405,8 @@ namespace Enrollment_System
         {
         
                 DeleteRecord();
+            LoadData();
 
-         
         }
 
         private void button3_Click(object sender, EventArgs e)

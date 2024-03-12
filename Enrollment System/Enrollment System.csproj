@@ -52,6 +52,12 @@
     <Compile Include="Course.Designer.cs">
       <DependentUpon>Course.cs</DependentUpon>
     </Compile>
+    <Compile Include="Fee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fee.Designer.cs">
+      <DependentUpon>Fee.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modules\GlobalSetting.cs" />
     <Compile Include="Student.cs">
       <SubType>Form</SubType>
@@ -67,6 +73,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StudentPayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentPayment.Designer.cs">
+      <DependentUpon>StudentPayment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Subject.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +87,9 @@
     </Compile>
     <EmbeddedResource Include="Course.resx">
       <DependentUpon>Course.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fee.resx">
+      <DependentUpon>Fee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Student.resx">
       <DependentUpon>Student.cs</DependentUpon>
@@ -92,6 +107,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="StudentPayment.resx">
+      <DependentUpon>StudentPayment.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Subject.resx">
       <DependentUpon>Subject.cs</DependentUpon>
     </EmbeddedResource>
@@ -143,6 +161,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Internet-go1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\file_1091994.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\file_10919941.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

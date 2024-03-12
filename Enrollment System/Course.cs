@@ -15,6 +15,7 @@ namespace Enrollment_System
 {
     public partial class Course : Form
     {
+        private readonly ErrorProvider errorProvider = new ErrorProvider { BlinkStyle = ErrorBlinkStyle.NeverBlink };
         public Course()
         {
             InitializeComponent();
@@ -139,6 +140,7 @@ namespace Enrollment_System
                     command.Parameters.Clear();
                     command.Parameters.AddWithValue("@CourseCode", tbCourseCode.Text);
                     command.Parameters.AddWithValue("@CourseDescription", tbCourseDescription.Text);
+                    
 
                     if (cbCourseStatus.Text == "Active")
                     {
@@ -321,7 +323,7 @@ namespace Enrollment_System
             {
                 int selectedIndex = dataGridView2.SelectedRows[0].Index;
 
-                string ID = dataGridView2.Rows[selectedIndex].Cells["CourseCode"].Value.ToString();
+                string ID = dataGridView2.Rows[selectedIndex].Cells["RecordNumber"].Value.ToString();
 
                 DialogResult result = MessageBox.Show($"Do you want to delete?\n\n{ID}", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
@@ -339,8 +341,36 @@ namespace Enrollment_System
             
             
                 DeleteRecord();
+            LoadData();
 
-            
+        }
+
+        private bool ValidateAllControls(Control container)
+        {
+            return container.Controls.OfType<TextBox>().All(control => ValidateControl(control)) &&
+                   container.Controls.OfType<ComboBox>().All(control => ValidateControl(control));
+        }
+
+        private bool ValidateControl(Control control)
+        {
+            if (control is TextBox textBox && string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                DisplayValidationError(textBox, "Field is required.");
+                return false;
+            }
+
+            if (control is ComboBox comboBox && comboBox.SelectedItem == null)
+            {
+                DisplayValidationError(comboBox, "Please select an option.");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void DisplayValidationError(Control control, string errorMessage)
+        {
+            errorProvider.SetError(control, errorMessage);
         }
     }
 }
