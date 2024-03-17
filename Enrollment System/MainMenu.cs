@@ -37,21 +37,23 @@ namespace Enrollment_System
         
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            // Get the size of the screen
-            int screenWidth = Screen.PrimaryScreen.Bounds.Width;
-            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+            //// Get the size of the screen
+            //int screenWidth = Screen.PrimaryScreen.Bounds.Width;
+            //int screenHeight = Screen.PrimaryScreen.Bounds.Height;
 
-            // Get the size of the form
-            int formWidth = this.Width;
-            int formHeight = this.Height;
+            //// Get the size of the form
+            //int formWidth = this.Width;
+            //int formHeight = this.Height;
 
-            // Calculate the position of the form
-            int formX = (screenWidth - formWidth) / 2;
-            int formY = (screenHeight - formHeight) / 2;
+            //// Calculate the position of the form
+            //int formX = (screenWidth - formWidth) / 2;
+            //int formY = (screenHeight - formHeight) / 2;
 
-            // Set the position of the form
-            this.StartPosition = FormStartPosition.Manual;
-            this.Location = new Point(formX, formY);
+            //// Set the position of the form
+            //this.StartPosition = FormStartPosition.Manual;
+            //this.Location = new Point(formX, formY);
+
+            CenterPanel();
         }
 
         private void CenterPanel()
@@ -102,6 +104,27 @@ namespace Enrollment_System
             this.Hide();
             Fee fee = new Fee();
             fee.Show();
+        }
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            StudentPayment studentPayment = new StudentPayment();
+            studentPayment.Show();
+        }
+
+        private void pictureBox7_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            UserManagement userManagement = new UserManagement();
+            userManagement.Show();
+        }
+
+        private void logInToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            LogIn logIn = new LogIn();
+            logIn.Show();
         }
     }
 }

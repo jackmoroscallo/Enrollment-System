@@ -452,7 +452,7 @@
             this.btnMainMenu.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnMainMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMainMenu.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnMainMenu.Location = new System.Drawing.Point(16, -4);
+            this.btnMainMenu.Location = new System.Drawing.Point(12, 14);
             this.btnMainMenu.Name = "btnMainMenu";
             this.btnMainMenu.Size = new System.Drawing.Size(151, 62);
             this.btnMainMenu.TabIndex = 67;

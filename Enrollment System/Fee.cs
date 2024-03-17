@@ -347,7 +347,7 @@ namespace Enrollment_System
                 cbCourseCode.Text = selectedRow.Cells[4].Value.ToString();
                 cbSchoolYear.Text = selectedRow.Cells[5].Value.ToString();
                 cbTerm.Text = selectedRow.Cells[6].Value.ToString();
-                cbYearLevel.Text = selectedRow.Cells[6].Value.ToString();
+                cbYearLevel.Text = selectedRow.Cells[7].Value.ToString();
             }
             catch
             {

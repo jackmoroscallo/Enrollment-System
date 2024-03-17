@@ -58,6 +58,12 @@
     <Compile Include="Fee.Designer.cs">
       <DependentUpon>Fee.cs</DependentUpon>
     </Compile>
+    <Compile Include="LogIn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogIn.Designer.cs">
+      <DependentUpon>LogIn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modules\GlobalSetting.cs" />
     <Compile Include="Student.cs">
       <SubType>Form</SubType>
@@ -85,11 +91,20 @@
     <Compile Include="Subject.Designer.cs">
       <DependentUpon>Subject.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserManagement.Designer.cs">
+      <DependentUpon>UserManagement.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Course.resx">
       <DependentUpon>Course.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Fee.resx">
       <DependentUpon>Fee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogIn.resx">
+      <DependentUpon>LogIn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Student.resx">
       <DependentUpon>Student.cs</DependentUpon>
@@ -112,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Subject.resx">
       <DependentUpon>Subject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserManagement.resx">
+      <DependentUpon>UserManagement.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -167,6 +185,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\file_10919941.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pay_1570917.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pay_15709172.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\profile_3524761.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\profile_35247611.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\graduation_5306181.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

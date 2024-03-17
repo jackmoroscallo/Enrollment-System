@@ -93,6 +93,16 @@ namespace Enrollment_System.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap graduation_5306181 {
+            get {
+                object obj = ResourceManager.GetObject("graduation_5306181", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Internet_go {
             get {
                 object obj = ResourceManager.GetObject("Internet-go", resourceCulture);
@@ -106,6 +116,46 @@ namespace Enrollment_System.Properties {
         internal static System.Drawing.Bitmap Internet_go1 {
             get {
                 object obj = ResourceManager.GetObject("Internet-go1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pay_1570917 {
+            get {
+                object obj = ResourceManager.GetObject("pay_1570917", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pay_15709172 {
+            get {
+                object obj = ResourceManager.GetObject("pay_15709172", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap profile_3524761 {
+            get {
+                object obj = ResourceManager.GetObject("profile_3524761", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap profile_35247611 {
+            get {
+                object obj = ResourceManager.GetObject("profile_35247611", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
