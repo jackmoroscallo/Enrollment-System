@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net, Version=0.1.4141.31969, Culture=neutral, PublicKeyToken=f3bc8f8c31beeb49, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.Net.0.1.0\lib\net35\BCrypt.Net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,17 +49,65 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Course.cs">
+    <Compile Include="AccountingEnrollStudent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Course.Designer.cs">
+    <Compile Include="AccountingEnrollStudent.Designer.cs">
+      <DependentUpon>AccountingEnrollStudent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AccountingMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AccountingMenu.Designer.cs">
+      <DependentUpon>AccountingMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AccountingPendingEnrollment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AccountingPendingEnrollment.Designer.cs">
+      <DependentUpon>AccountingPendingEnrollment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdminForms\Course.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminForms\Course.Designer.cs">
       <DependentUpon>Course.cs</DependentUpon>
     </Compile>
-    <Compile Include="Fee.cs">
+    <Compile Include="AdminForms\EnrollStudent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Fee.Designer.cs">
+    <Compile Include="AdminForms\EnrollStudent.Designer.cs">
+      <DependentUpon>EnrollStudent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdminForms\Fee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminForms\Fee.Designer.cs">
       <DependentUpon>Fee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdminForms\Room.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminForms\Room.Designer.cs">
+      <DependentUpon>Room.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdminForms\StudentList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminForms\StudentList.Designer.cs">
+      <DependentUpon>StudentList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CoordinatorMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CoordinatorMenu.Designer.cs">
+      <DependentUpon>CoordinatorMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListOfPendingEnrollment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListOfPendingEnrollment.Designer.cs">
+      <DependentUpon>ListOfPendingEnrollment.cs</DependentUpon>
     </Compile>
     <Compile Include="LogIn.cs">
       <SubType>Form</SubType>
@@ -65,51 +116,132 @@
       <DependentUpon>LogIn.cs</DependentUpon>
     </Compile>
     <Compile Include="Modules\GlobalSetting.cs" />
-    <Compile Include="Student.cs">
+    <Compile Include="OfferedSubject.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Student.Designer.cs">
+    <Compile Include="OfferedSubject.Designer.cs">
+      <DependentUpon>OfferedSubject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OfferedSubjectList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OfferedSubjectList.Designer.cs">
+      <DependentUpon>OfferedSubjectList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PendingEnrollment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PendingEnrollment.Designer.cs">
+      <DependentUpon>PendingEnrollment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegistrarMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistrarMenu.Designer.cs">
+      <DependentUpon>RegistrarMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdminForms\SchoolYearSemester.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminForms\SchoolYearSemester.Designer.cs">
+      <DependentUpon>SchoolYearSemester.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdminForms\Student.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminForms\Student.Designer.cs">
       <DependentUpon>Student.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainMenu.cs">
+    <Compile Include="AdminForms\MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainMenu.Designer.cs">
+    <Compile Include="AdminForms\MainMenu.Designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StudentPayment.cs">
+    <Compile Include="AdminForms\StudentPayment.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StudentPayment.Designer.cs">
+    <Compile Include="AdminForms\StudentPayment.Designer.cs">
       <DependentUpon>StudentPayment.cs</DependentUpon>
     </Compile>
-    <Compile Include="Subject.cs">
+    <Compile Include="AdminForms\Subject.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Subject.Designer.cs">
+    <Compile Include="AdminForms\Subject.Designer.cs">
       <DependentUpon>Subject.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserManagement.cs">
+    <Compile Include="AdminForms\UserManagement.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UserManagement.Designer.cs">
+    <Compile Include="AdminForms\UserManagement.Designer.cs">
       <DependentUpon>UserManagement.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Course.resx">
+    <Compile Include="AdminForms\Section.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminForms\Section.Designer.cs">
+      <DependentUpon>Section.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewOfferedSubjectList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewOfferedSubjectList.Designer.cs">
+      <DependentUpon>ViewOfferedSubjectList.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AccountingEnrollStudent.resx">
+      <DependentUpon>AccountingEnrollStudent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AccountingMenu.resx">
+      <DependentUpon>AccountingMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AccountingPendingEnrollment.resx">
+      <DependentUpon>AccountingPendingEnrollment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminForms\Course.resx">
       <DependentUpon>Course.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Fee.resx">
+    <EmbeddedResource Include="AdminForms\EnrollStudent.resx">
+      <DependentUpon>EnrollStudent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminForms\Fee.resx">
       <DependentUpon>Fee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminForms\Room.resx">
+      <DependentUpon>Room.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminForms\StudentList.resx">
+      <DependentUpon>StudentList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CoordinatorMenu.resx">
+      <DependentUpon>CoordinatorMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListOfPendingEnrollment.resx">
+      <DependentUpon>ListOfPendingEnrollment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LogIn.resx">
       <DependentUpon>LogIn.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Student.resx">
+    <EmbeddedResource Include="OfferedSubject.resx">
+      <DependentUpon>OfferedSubject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OfferedSubjectList.resx">
+      <DependentUpon>OfferedSubjectList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PendingEnrollment.resx">
+      <DependentUpon>PendingEnrollment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistrarMenu.resx">
+      <DependentUpon>RegistrarMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminForms\SchoolYearSemester.resx">
+      <DependentUpon>SchoolYearSemester.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminForms\Student.resx">
       <DependentUpon>Student.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainMenu.resx">
+    <EmbeddedResource Include="AdminForms\MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -122,15 +254,22 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="StudentPayment.resx">
+    <EmbeddedResource Include="AdminForms\StudentPayment.resx">
       <DependentUpon>StudentPayment.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Subject.resx">
+    <EmbeddedResource Include="AdminForms\Subject.resx">
       <DependentUpon>Subject.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserManagement.resx">
+    <EmbeddedResource Include="AdminForms\UserManagement.resx">
       <DependentUpon>UserManagement.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AdminForms\Section.resx">
+      <DependentUpon>Section.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewOfferedSubjectList.resx">
+      <DependentUpon>ViewOfferedSubjectList.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -200,6 +339,34 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\graduation_5306181.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AccountingForms\" />
+    <Folder Include="RegistrarForms\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\layout_2931784.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\layout_29317841.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\layout_29317842.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\123.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\classroom_2883640.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\classroom_28836401.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\student_7218044.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dmc_logo_png2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
