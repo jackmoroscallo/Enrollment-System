@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using ComboBox = System.Windows.Forms.ComboBox;
 using TextBox = System.Windows.Forms.TextBox;
 
@@ -95,7 +96,9 @@ namespace Enrollment_System
                 dataAdapter.Fill(dataTable);
 
                 dataGridView1.DataSource = dataTable;
-
+                gridControl1.DataSource = dataTable;
+                gridControl1.ForceInitialize();
+                gridView1.ExpandAllGroups();
 
             }
             catch (Exception ex)
@@ -750,7 +753,50 @@ namespace Enrollment_System
             }
         }
 
+        private void gridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            
+        }
 
+        private void gridView1_RowCellClick(object sender, DevExpress.XtraGrid.Views.Grid.RowCellClickEventArgs e)
+        {
+            // Ensure a row is selected
+    
+        }
+
+        private void gridView1_RowClick(object sender, DevExpress.XtraGrid.Views.Grid.RowClickEventArgs e)
+        {
+            if (e.RowHandle >= 0)
+            {
+                // Retrieve data from the selected row
+                DataRow selectedRow = gridView1.GetDataRow(e.RowHandle);
+                if (selectedRow != null)
+                {
+
+                    tbStudentID.Text = selectedRow["StudentID"].ToString();
+                    tbLastName.Text = selectedRow["LastName"].ToString();
+                    tbFirstName.Text = selectedRow["FirstName"].ToString();
+                    tbMiddleName.Text = selectedRow["MiddleName"].ToString();
+                    cbCourseCode.Text = selectedRow["StudentCourse"].ToString();
+                    cbYearLevel.Text = selectedRow["YearLevel"].ToString();
+                    cbStatus.Text = selectedRow["StudentStatus"].ToString();
+                    cbGender.Text = selectedRow["Gender"].ToString();
+                    dtpBirthDate.Value = Convert.ToDateTime(selectedRow["Birthdate"].ToString());
+                    tbAddress.Text = selectedRow["Address"].ToString();
+                    tbContactNumber.Text = selectedRow["ContactNumber"].ToString();
+                    tbEmail.Text = selectedRow["Email"].ToString();
+
+                    tbStudentID.ReadOnly = true;
+
+                    if (tbStudentID.Text != "")
+                    {
+                        btnModify.Enabled = true;
+                    }
+                    RetrieveImage(tbStudentID.Text);
+
+                }
+            }
+        }
     }
 
 }
