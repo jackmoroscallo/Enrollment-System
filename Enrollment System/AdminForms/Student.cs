@@ -92,7 +92,7 @@ namespace Enrollment_System
             stringBuilder.AppendLine("    s.ContactNumber AS [ContactNumber],");
             stringBuilder.AppendLine("    s.Email AS [Email]");
             stringBuilder.AppendLine("FROM [stud].[Student] s");
-            stringBuilder.AppendLine("LEFT JOIN [dbo].[StudentImage] si ON s.RecordNumber = si.RecordNumber"); 
+            stringBuilder.AppendLine("LEFT JOIN [dbo].[StudentImage] si ON s.StudentID = si.StudentID"); 
 
             SqlConnection connection = new SqlConnection(connectionString);
 

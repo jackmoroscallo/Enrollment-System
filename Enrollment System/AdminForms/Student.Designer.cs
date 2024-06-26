@@ -81,6 +81,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.gridColumn13 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -154,7 +155,8 @@
             this.gridColumn9,
             this.gridColumn10,
             this.gridColumn11,
-            this.gridColumn12});
+            this.gridColumn12,
+            this.gridColumn13});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.GroupCount = 2;
             this.gridView1.Name = "gridView1";
@@ -709,6 +711,16 @@
             this.label1.TabIndex = 29;
             this.label1.Text = "Enrollment System";
             // 
+            // gridColumn13
+            // 
+            this.gridColumn13.Caption = "Student Picture";
+            this.gridColumn13.FieldName = "StudentPicture";
+            this.gridColumn13.MinWidth = 25;
+            this.gridColumn13.Name = "gridColumn13";
+            this.gridColumn13.Visible = true;
+            this.gridColumn13.VisibleIndex = 10;
+            this.gridColumn13.Width = 274;
+            // 
             // Student
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -788,6 +800,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn10;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn11;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn12;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn13;
     }
 }
 
