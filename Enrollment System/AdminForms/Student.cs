@@ -1,4 +1,6 @@
-﻿using Enrollment_System.Modules;
+﻿using DevExpress.XtraEditors;
+using DevExpress.XtraGrid.Views.Grid;
+using Enrollment_System.Modules;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -75,13 +77,22 @@ namespace Enrollment_System
             string connectionString = GlobalSetting.ConnectionString;
 
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("SELECT [StudentID],[LastName],[FirstName],[MiddleName],[StudentCourse],[YearLevel],[StudentStatus]");
-            stringBuilder.AppendLine("      ,[Gender]");
-            stringBuilder.AppendLine("      ,[Birthdate]");
-            stringBuilder.AppendLine("      ,[Address]");
-            stringBuilder.AppendLine("      ,[ContactNumber]");
-            stringBuilder.AppendLine("      ,[Email]");
-            stringBuilder.AppendLine("  FROM [IT3232Moroscallo].[stud].[Student]");
+            stringBuilder.AppendLine("SELECT");
+            stringBuilder.AppendLine("    s.StudentID AS [StudentID],");
+            stringBuilder.AppendLine("    s.LastName AS [LastName],");
+            stringBuilder.AppendLine("    s.FirstName AS [FirstName],");
+            stringBuilder.AppendLine("    s.MiddleName AS [MiddleName],");
+            stringBuilder.AppendLine("    s.StudentCourse AS [StudentCourse],");
+            stringBuilder.AppendLine("    s.YearLevel AS [YearLevel],");
+            stringBuilder.AppendLine("    s.StudentStatus AS [StudentStatus],");
+            stringBuilder.AppendLine("    s.Gender AS [Gender],");
+            stringBuilder.AppendLine("    s.Birthdate AS [Birthdate],");
+            stringBuilder.AppendLine("    s.Address AS [Address],");
+            stringBuilder.AppendLine("    si.StudentPicture AS [StudentPicture],");
+            stringBuilder.AppendLine("    s.ContactNumber AS [ContactNumber],");
+            stringBuilder.AppendLine("    s.Email AS [Email]");
+            stringBuilder.AppendLine("FROM [stud].[Student] s");
+            stringBuilder.AppendLine("LEFT JOIN [dbo].[StudentImage] si ON s.RecordNumber = si.RecordNumber"); 
 
             SqlConnection connection = new SqlConnection(connectionString);
 
@@ -95,7 +106,7 @@ namespace Enrollment_System
 
                 dataAdapter.Fill(dataTable);
 
-                dataGridView1.DataSource = dataTable;
+                
                 gridControl1.DataSource = dataTable;
                 gridControl1.ForceInitialize();
                 gridView1.ExpandAllGroups();
@@ -358,39 +369,7 @@ namespace Enrollment_System
 
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                DataGridViewRow selectedRow = dataGridView1.Rows[e.RowIndex];
-
-                tbStudentID.Text = selectedRow.Cells[0].Value.ToString();
-                tbLastName.Text = selectedRow.Cells[1].Value.ToString();
-                tbFirstName.Text = selectedRow.Cells[2].Value.ToString();
-                tbMiddleName.Text = selectedRow.Cells[3].Value.ToString();
-                cbCourseCode.Text = selectedRow.Cells[4].Value.ToString();
-                cbYearLevel.Text = selectedRow.Cells[5].Value.ToString();
-                cbStatus.Text = selectedRow.Cells[6].Value.ToString();
-                cbGender.Text = selectedRow.Cells[7].Value.ToString();
-                dtpBirthDate.Value = Convert.ToDateTime(selectedRow.Cells[8].Value);
-                tbAddress.Text = selectedRow.Cells[9].Value.ToString();
-                tbContactNumber.Text = selectedRow.Cells[10].Value.ToString();
-                tbEmail.Text = selectedRow.Cells[11].Value.ToString();
-
-                tbStudentID.ReadOnly = true;
-
-                if (tbStudentID.Text != "")
-                {
-                    btnModify.Enabled = true;
-                }
-                RetrieveImage(tbStudentID.Text);
-                
-            }
-            catch
-            {
-
-            }
-        }
+        
 
         private void btnClear_Click(object sender, EventArgs e)
         {
@@ -476,21 +455,33 @@ namespace Enrollment_System
 
         private void DeleteRecord() 
         {
-            if (dataGridView1.SelectedRows.Count > 0)
+            // Assuming gridView1 is the main view of your GridControl
+            GridView gridView = gridControl1.MainView as GridView;
+
+            if (gridView != null && gridView.SelectedRowsCount > 0)
             {
-                int selectedIndex = dataGridView1.SelectedRows[0].Index;
+                // Get the handle of the selected row
+                int selectedRowHandle = gridView.GetSelectedRows()[0];
 
-                string ID = dataGridView1.Rows[selectedIndex].Cells["StudentID"].Value.ToString();
+                // Get the value of the "StudentID" column
+                string ID = gridView.GetRowCellValue(selectedRowHandle, "StudentID").ToString();
 
-
-                DialogResult result = MessageBox.Show($"Do you want to delete?\n\n{ID}", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                DialogResult result = XtraMessageBox.Show($"Do you want to delete?\n\nID: {ID}", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
                 if (result == DialogResult.Yes)
                 {
-                    
+                    // Assuming DeleteStudentByIDNumber is a method that deletes the record from the database
                     DeleteStudentByIDNumber(ID);
-                    MessageBox.Show("Record Deleted!", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Delete the row from the GridView
+                    gridView.DeleteRow(selectedRowHandle);
+
+                    XtraMessageBox.Show("Record Deleted!", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+            }
+            else
+            {
+                XtraMessageBox.Show("Please select a record to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -502,96 +493,6 @@ namespace Enrollment_System
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            //// Get the search keyword from the TextBox
-            //string searchKeyword = tbSearch.Text;
-
-            //// Create a StringBuilder to build the dynamic SQL query
-            //StringBuilder queryBuilder = new StringBuilder();
-
-            //// Start building the SELECT query
-            //queryBuilder.Append("SELECT * FROM [stud].[Student]");
-            //queryBuilder.Append("WHERE ");
-
-            //// Add conditions for searching (replace "ColumnName" with your actual column name)
-            //queryBuilder.Append("LastName LIKE @SearchKeyword");
-
-            //// Create a DataTable to hold the search results
-            //DataTable dataTable = new DataTable();
-
-            //// Create a SqlConnection and a SqlCommand
-            //using (SqlConnection connection = new SqlConnection(GlobalSetting.ConnectionString))
-            //{
-            //    // Open the connection
-            //    connection.Open();
-
-            //    // Create a SqlCommand with the dynamic query
-            //    using (SqlCommand command = new SqlCommand(queryBuilder.ToString(), connection))
-            //    {
-            //        // Add parameters to the SqlCommand
-            //        command.Parameters.AddWithValue("@SearchKeyword", "%" + searchKeyword + "%");
-
-            //        // Create a SqlDataAdapter to fill the DataTable
-            //        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-            //        {
-            //            // Fill the DataTable with the results
-            //            adapter.Fill(dataTable);
-            //        }
-            //    }
-            //}
-
-            //// Bind the DataTable to the DataGridView
-            //dataGridView1.DataSource = dataTable;
-
-
-
-            string searchKeyword = tbSearch.Text;
-
-            using (SqlConnection connection = new SqlConnection(GlobalSetting.ConnectionString))
-            {
-                connection.Open();
-
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-
-                    // Get column names
-                    DataTable schemaTable = connection.GetSchema("Columns", new[] { null, null, "Student", null });
-
-                    // Constructing the dynamic SQL query
-                    command.CommandText = $"SELECT * FROM [stud].[Student] WHERE ";
-
-                    foreach (DataRow row in schemaTable.Rows)
-                    {
-                        string columnName = (string)row["COLUMN_NAME"];
-
-                        // Append each column to the WHERE clause
-                        command.CommandText += $"{columnName} LIKE @{columnName} OR ";
-
-                        // Add parameter for the current column
-                        command.Parameters.AddWithValue($"@{columnName}", $"%{searchKeyword}%");
-                    }
-
-                    // Remove the last 'OR' from the WHERE clause
-                    command.CommandText = command.CommandText.TrimEnd(' ', 'O', 'R');
-
-                    // Create a DataTable to store the search results
-                    DataTable searchResults = new DataTable();
-
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                    {
-                        // Fill the DataTable with the search results
-                        adapter.Fill(searchResults);
-                    }
-
-                    // Bind the DataTable to the DataGridView
-                    dataGridView1.DataSource = searchResults;
-                }
-
-
-            }
-        }
 
         
 
