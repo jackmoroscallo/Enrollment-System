@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Enrollment_System.AdminForms;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Enrollment_System
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainMenu());
+            Application.Run(new MainMenuTwo());
             //string ConnectionString = "Data Source=(localdb)\\Local;Initial Catalog=IT3232Moroscallo;User ID=test;Password=test";
 
             //using (SqlConnection connection = new SqlConnection(ConnectionString)) 
