@@ -13,6 +13,8 @@ namespace Enrollment_System.AdminForms
 {
     public partial class MainMenuTwo : DevExpress.XtraEditors.XtraForm
     {
+        public string userRole { get; set; }
+        public string userDetail { get; set; }
         public MainMenuTwo()
         {
             InitializeComponent();
@@ -45,6 +47,31 @@ namespace Enrollment_System.AdminForms
         {
             Subject subject = new Subject();
             subject.ShowDialog();
+        }
+
+        private void tileItem7_ItemClick(object sender, TileItemEventArgs e)
+        {
+            Fee fee = new Fee();
+            fee.ShowDialog();
+        }
+
+        private void tileItem10_ItemClick(object sender, TileItemEventArgs e)
+        {
+            StudentPayment studentPayment = new StudentPayment();
+            studentPayment.userDetail = userDetail;
+            studentPayment.ShowDialog();
+        }
+
+        private void tileItem11_ItemClick(object sender, TileItemEventArgs e)
+        {
+            Room room = new Room();
+            room.ShowDialog();
+        }
+
+        private void tileItem12_ItemClick(object sender, TileItemEventArgs e)
+        {
+            Section section = new Section();
+            section.ShowDialog();
         }
     }
 }
