@@ -284,6 +284,7 @@
             this.ClientSize = new System.Drawing.Size(1940, 980);
             this.Controls.Add(this.tileControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.IconOptions.Image = ((System.Drawing.Image)(resources.GetObject("MainMenuTwo.IconOptions.Image")));
             this.MaximizeBox = false;
             this.Name = "MainMenuTwo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
