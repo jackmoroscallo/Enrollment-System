@@ -45,6 +45,7 @@
             this.gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn11 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn12 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn13 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnGetPhoto = new System.Windows.Forms.Button();
             this.picBoxStudentImage = new System.Windows.Forms.PictureBox();
@@ -81,7 +82,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.gridColumn13 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.btnGenerateReport = new DevExpress.XtraEditors.SimpleButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -105,6 +106,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tabPage1.Controls.Add(this.btnGenerateReport);
             this.tabPage1.Controls.Add(this.gridControl1);
             this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Controls.Add(this.btDelete);
@@ -303,6 +305,16 @@
             this.gridColumn12.Visible = true;
             this.gridColumn12.VisibleIndex = 9;
             this.gridColumn12.Width = 241;
+            // 
+            // gridColumn13
+            // 
+            this.gridColumn13.Caption = "Student Picture";
+            this.gridColumn13.FieldName = "StudentPicture";
+            this.gridColumn13.MinWidth = 25;
+            this.gridColumn13.Name = "gridColumn13";
+            this.gridColumn13.Visible = true;
+            this.gridColumn13.VisibleIndex = 10;
+            this.gridColumn13.Width = 274;
             // 
             // panel1
             // 
@@ -711,15 +723,14 @@
             this.label1.TabIndex = 29;
             this.label1.Text = "Enrollment System";
             // 
-            // gridColumn13
+            // btnGenerateReport
             // 
-            this.gridColumn13.Caption = "Student Picture";
-            this.gridColumn13.FieldName = "StudentPicture";
-            this.gridColumn13.MinWidth = 25;
-            this.gridColumn13.Name = "gridColumn13";
-            this.gridColumn13.Visible = true;
-            this.gridColumn13.VisibleIndex = 10;
-            this.gridColumn13.Width = 274;
+            this.btnGenerateReport.Location = new System.Drawing.Point(1599, 160);
+            this.btnGenerateReport.Name = "btnGenerateReport";
+            this.btnGenerateReport.Size = new System.Drawing.Size(175, 58);
+            this.btnGenerateReport.TabIndex = 76;
+            this.btnGenerateReport.Text = "Generate Report";
+            this.btnGenerateReport.Click += new System.EventHandler(this.btnGenerateReport_Click);
             // 
             // Student
             // 
@@ -801,6 +812,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn11;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn12;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn13;
+        private DevExpress.XtraEditors.SimpleButton btnGenerateReport;
     }
 }
 

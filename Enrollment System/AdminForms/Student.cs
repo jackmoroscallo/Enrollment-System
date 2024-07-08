@@ -1,6 +1,10 @@
-﻿using DevExpress.XtraEditors;
+﻿using DevExpress.Office.Utils;
+using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraReports.UI;
+using DevExpress.XtraSplashScreen;
 using Enrollment_System.Modules;
+using Enrollment_System.Reports;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -695,6 +699,89 @@ namespace Enrollment_System
                     }
                     RetrieveImage(tbStudentID.Text);
 
+                }
+            }
+        }
+
+        private void btnGenerateReport_Click(object sender, EventArgs e)
+        {
+            // Show the splash screen
+            SplashScreenManager.ShowDefaultWaitForm("Please Wait", "Generating Student List...");
+
+            try
+            {
+
+                // Show report form
+                GenerateAndShowReport("Enrolled");
+
+            }
+            finally
+            {
+                // Close the splash screen after the loading process completes
+                SplashScreenManager.CloseForm();
+            }
+        }
+
+        private void GenerateAndShowReport(string pStudentStatus)
+        {
+            // Connection string for connecting to a SQL Server database
+            string connectionString = GlobalSetting.ConnectionString;
+
+            // Create a StringBuilder to construct the SQL query
+            StringBuilder queryBuilder = new StringBuilder();
+            queryBuilder.AppendLine("SELECT  s.[StudentID]");
+            queryBuilder.AppendLine("           ,s.[LastName]");
+            queryBuilder.AppendLine("           ,s.[FirstName]");
+            queryBuilder.AppendLine("           ,s.[MiddleName]");
+            queryBuilder.AppendLine("           ,s.[StudentCourse]");
+            queryBuilder.AppendLine("           ,s.[YearLevel]");
+            queryBuilder.AppendLine("           ,s.[StudentStatus]");
+            queryBuilder.AppendLine("           ,si.[StudentPicture]");
+            queryBuilder.AppendLine("FROM [stud].[Student] AS s");
+            queryBuilder.AppendLine("LEFT JOIN [dbo].[StudentImage] AS si");
+            queryBuilder.AppendLine("ON s.StudentID = si.StudentID");
+            queryBuilder.AppendLine("WHERE s.StudentStatus = @StudentStatus");
+
+            // SQL query string from StringBuilder
+            string query = queryBuilder.ToString();
+
+            // Create a SqlConnection object
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    // Open the connection
+                    connection.Open();
+
+                    // Create a SqlCommand object with the parameterized query and SqlConnection
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        // Add parameters to the command
+                        command.Parameters.AddWithValue("@StudentStatus", pStudentStatus);
+
+                        // Create a DataAdapter and provide the SqlCommand
+                        using (SqlDataAdapter dataAdapter = new SqlDataAdapter(command))
+                        {
+                            // Create a DataTable to hold the data
+                            DataTable dataTable = new DataTable();
+
+                            // Fill the DataTable with data using the DataAdapter
+                            dataAdapter.Fill(dataTable);
+
+                            // Create an instance of your report
+                            rptStudentReport report = new rptStudentReport();
+
+                            // Set the DataSource of the report to the DataTable
+                            report.DataSource = dataTable;
+
+                            // Show the report preview
+                            report.ShowPreview();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    XtraMessageBox.Show("Error: " + ex.Message);
                 }
             }
         }
