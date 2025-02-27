@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Student));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnGenerateReport = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -82,7 +83,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnGenerateReport = new DevExpress.XtraEditors.SimpleButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -124,6 +124,15 @@
             this.tabPage1.Size = new System.Drawing.Size(1916, 934);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Enroll Student";
+            // 
+            // btnGenerateReport
+            // 
+            this.btnGenerateReport.Location = new System.Drawing.Point(1599, 160);
+            this.btnGenerateReport.Name = "btnGenerateReport";
+            this.btnGenerateReport.Size = new System.Drawing.Size(175, 58);
+            this.btnGenerateReport.TabIndex = 76;
+            this.btnGenerateReport.Text = "Generate Report";
+            this.btnGenerateReport.Click += new System.EventHandler(this.btnGenerateReport_Click);
             // 
             // gridControl1
             // 
@@ -348,6 +357,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1074, 690);
             this.panel1.TabIndex = 74;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // btnGetPhoto
             // 
@@ -722,15 +732,6 @@
             this.label1.Size = new System.Drawing.Size(359, 48);
             this.label1.TabIndex = 29;
             this.label1.Text = "Enrollment System";
-            // 
-            // btnGenerateReport
-            // 
-            this.btnGenerateReport.Location = new System.Drawing.Point(1599, 160);
-            this.btnGenerateReport.Name = "btnGenerateReport";
-            this.btnGenerateReport.Size = new System.Drawing.Size(175, 58);
-            this.btnGenerateReport.TabIndex = 76;
-            this.btnGenerateReport.Text = "Generate Report";
-            this.btnGenerateReport.Click += new System.EventHandler(this.btnGenerateReport_Click);
             // 
             // Student
             // 
